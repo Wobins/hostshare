@@ -1,12 +1,11 @@
 import logo from './logo.svg';
+import Index from './pages/Index';
 import './App.css';
 
 function App() {
   return (
 
-    <div className="bg-blue-500 text-white p-4 my-2.5">
-      This is a component using Tailwind CSS.
-    </div>
+    <Index />
 
     // <div className="App">
     //   <header className="App-header">
