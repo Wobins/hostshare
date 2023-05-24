@@ -1,11 +1,11 @@
 import logo from './logo.svg';
-import Index from './pages/Index';
+import { RouterProvider, } from "react-router-dom";
+import router from "./router";
 import './App.css';
 
 function App() {
   return (
-
-    <Index />
+    <RouterProvider router={router} />
 
     // <div className="App">
     //   <header className="App-header">
