@@ -1,0 +1,13 @@
+#navbar .css-2s90m6-MuiAvatar-root {
+    width: 30px;
+    height: 30px;
+}
+
+#navbar .logo {
+    width: 100px;
+    height: auto;
+}
+
+#navbar #navbar-menu {
+    cursor: pointer;
+}
