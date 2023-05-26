@@ -11,7 +11,8 @@ const images = [
     image,
 ];
 
-const ListingCard = () => {
+const ListingCard = (props) => {
+    const { id, title, mainImage, city, country, nightlyRate, secondImage, thirdImage, currency } = props;
     const [currentSlide, setCurrentSlide] = useState(0);
     const totalSlides = images.length;
 

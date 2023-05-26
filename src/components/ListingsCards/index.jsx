@@ -15,16 +15,16 @@ const ListingsCards = () => {
 
   // Fetch Listings
   const fetchListings = async () => {
-    const res = await fetch('http://localhost:5000/tasks/');
-    const data = await res.data.json();
-    console.log(data);
+    const res = await fetch('http://localhost:5000/listings/');
+    const data = await res.json();
+    // console.log(data);
     return data;
   }
 
   return (
     <>
       {
-        [1, 2, 3, 4].map((listing, index) => (
+        listings.map((listing, index) => (
           <ListingCard />
         ))
       }
