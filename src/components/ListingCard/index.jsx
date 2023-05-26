@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import classNames from 'classnames';
+import { Box } from '@mui/material';
+import { Link } from 'react-router-dom';
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 
@@ -12,8 +14,9 @@ const images = [
 ];
 
 const ListingCard = (props) => {
-    const { id, title, mainImage, city, country, nightlyRate, secondImage, thirdImage, currency } = props;
+    const { id, mainImage, city, country, nightlyRate, secondImage, thirdImage, fourthImage, currency } = props;
     const [currentSlide, setCurrentSlide] = useState(0);
+    const images2 = [mainImage, secondImage, thirdImage, fourthImage];
     const totalSlides = images.length;
 
     const goToPreviousSlide = () => {
@@ -26,7 +29,7 @@ const ListingCard = (props) => {
 
     return (
         <>
-            <div className='border'>
+            <Box className='border' component={Link} to={id} target='_blank'>
                 <div className="relative">
                     <div className="overflow-hidden rounded-lg border">
                         <img
@@ -73,7 +76,7 @@ const ListingCard = (props) => {
                     <p>At hgoldldld</p> <br />
                     <p><span>455</span> vllll</p>
                 </div>
-            </div>
+            </Box>
         </>
     );
 };
