@@ -8,7 +8,7 @@ const hostshare_green_logo = require("../../assets/images/Hostshare-logo-green.p
 
 const NavigationBar = () => {
     return (
-        <header className='py-4 border-b-2 bg-white fixed top-0 left-0 right-0 m-0'>
+        <header className='z-40 py-4 border-b-2 bg-white sticky top-0 right-0 m-0'>
             <nav id='navbar' className='m-0 container'>
                 <div className="flex justify-between items-center">
                     <div id='navbar-logo'>
@@ -17,14 +17,10 @@ const NavigationBar = () => {
                         </Link>
                     </div>
                     <div id='navbar-search-form'>
-                        <form action="" className='inline-box'>
-                            <input type="text" />
-                            <input type="text" />
-                            <input type="text" />
-                        </form>
+                        Search
                     </div>
                     <div id='navbar-menu'>
-                        <div className="flex flex-row items-center border-2 p-2 rounded-full">
+                        <div className="flex flex-row items-center border-2 px-2 rounded-full">
                             <MenuIcon className='m-2' />
                             <Avatar className='avatar' />
                         </div>
