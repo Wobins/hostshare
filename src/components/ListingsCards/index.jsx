@@ -25,7 +25,20 @@ const ListingsCards = () => {
     <>
       {
         listings.map((listing, index) => (
-          <ListingCard />
+          <ListingCard
+            key={index}
+            id={listing.info.id}
+            title={listing.info.title}
+            city={listing.info.location.city}
+            country={listing.info.location.country.title}
+            rating={listing.info.ratings.value}
+            mainImage={listing.info.mainImage.url}
+            secondImage={listing.info.images.data[1].url}
+            thirdImage={listing.info.images.data[2].url}
+            fourthImage={listing.info.images.data[3].url}
+            nightlyRate={listing.info.price}
+            currency={listing.info.currency.symbol}
+          />
         ))
       }
     </>
