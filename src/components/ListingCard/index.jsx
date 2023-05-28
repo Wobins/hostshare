@@ -49,6 +49,7 @@ const ListingCard = (props) => {
                     >
                         <img
                             className="rounded-lg h-64 w-full object-cover transition-transform duration-500 transform"
+                            loading="lazy"
                             src={images[currentSlide]}
                             alt="Carousel Slide"
                         />

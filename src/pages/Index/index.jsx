@@ -1,6 +1,5 @@
 import React from 'react';
 import NavigationBar from '../../components/NavigationBar';
-import ListingCard from '../../components/ListingCard';
 import ListingsCards from '../../components/ListingsCards';
 
 const Index = () => {

@@ -1,9 +1,17 @@
 import logo from './logo.svg';
+import { useEffect } from 'react';
+import groups from './utils/groups';
+import cities from './utils/cities';
+import categories from './utils/categories';
 import { RouterProvider, } from "react-router-dom";
 import router from "./router";
 import './App.css';
 
 function App() {
+  useEffect(() => {
+    console.log(categories);
+  }, [])
+
   return (
     <RouterProvider router={router} />
 
