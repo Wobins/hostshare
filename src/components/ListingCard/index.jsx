@@ -36,7 +36,7 @@ const ListingCard = (props) => {
     return (
         <>
             <Box 
-                className='border rounded-lg' 
+                className='rounded-lg' 
                 onMouseEnter={() => setIsHovered(true)}
                 onMouseLeave={() => setIsHovered(false)}
             >

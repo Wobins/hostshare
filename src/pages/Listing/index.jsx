@@ -1,36 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import {
-  Button,
-  Box, 
-  Modal,
-  Typography
-} from '@mui/material';
 import { useParams } from 'react-router-dom';
 import NavigationBar from '../../components/NavigationBar';
-import ImagesList from '../../components/ImagesList';
+import ImagesModal from '../../components/ImagesModal';
+import DescriptionModal from '../../components/DescriptionModal';
+import AmenitiesModal from '../../components/AmenitiesModal';
+import truncateText from '../../utils/truncateText'
 
-const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: "60%",
-  border: '1px solid #000',
-};
-
-const style2 = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: "60%",
-  overflowY: "scroll",
-  height: "75%",
-  bgcolor: 'background.paper',
-  border: '1px solid #fff',
-  boxShadow: 24,
-  p: 4,
-};
 
 const Listing = () => {
   let {id} = useParams();
@@ -38,6 +13,9 @@ const Listing = () => {
   const [openDescription, setOpenDescription] = useState(false);
   const [openAmenities, setOpenAmenities] = useState(false);
   const [title, setTitle] = useState("");
+  const [price, setPrice] = useState("");
+  const [maxGuestCapacity, setMaxGuestCapacity] = useState("");
+  const [currency, setCurrency] = useState("");
   const [description, setDescription] = useState("");
   const [images, setImages] = useState([]);
   const [city, setCity] = useState("");
@@ -58,18 +36,19 @@ const Listing = () => {
   const [fourthImage, setFourthImage] = useState("");
   const [fifthImage, setFifthImage] = useState("");
   const [amenities, setAmenities] = useState([]);
-  const [amenitiesToShow, setAmenitiesToShow] = useState([]);
   const [amenitiesCount, setAmenitiesCount] = useState("");
 
   useEffect(() => {
     const getListing = async () => {
       const listing = await fetchListing()
       let imgs = [];
+      let amnties = [];
       const images = listing.images.data; 
       setImages(images);
-      console.log(listing);
       setTitle(listing.title);
-      setAmenities(listing.amenities.data);
+      setPrice(listing.price);
+      setCurrency(listing.currency.symbol);
+      setMaxGuestCapacity(listing.maxGuestCapacity);
       setAmenitiesCount(listing.amenities.count);
       setRate(listing.ratings.value);
       setCity(listing.location.city);
@@ -94,12 +73,20 @@ const Listing = () => {
           break;
         }
       }
-      
+      for (let i = 0; i < amenities.length; i++) {
+        const el = amenities[i];
+        if (el.available) {
+          amnties.push(el.title);
+        }
+        if (amnties.length === 8) {
+          break;
+        }
+      }
+      setAmenities(listing.amenities.data);
       setSecondImage(imgs[0]);
       setThirdImage(imgs[1]);
       setFourthImage(imgs[2]);
       setFifthImage(imgs[3]);
-      // setAmenitiesToShow(amenities_to_show);
     }
     
     getListing();
@@ -125,26 +112,9 @@ const Listing = () => {
   const handleCloseImages = () => setOpenImages(false); // close modal for images
   const handleOpenDescription = () => setOpenDescription(true); // open modal for description
   const handleCloseDescription = () => setOpenDescription(false); // close modal for description
-  const handleAmenities = () => {
-    let amenities_to_show = [];
-    for (let i = 0; i < amenities.length; i++) {
-      const el = amenities[i];
-      if (el.available === true) {
-        amenities_to_show.push(el.title);
-      }
-      if (amenities_to_show.length === 8) {
-        break;
-      }
-    }
-    return (
-      <>
-        <p>amenities_to_show[0]</p>
-        <p>amenities_to_show[0]</p>
-        <p>amenities_to_show[0]</p>
-        <p>amenities_to_show[0]</p>
-      </>
-    );
-  }; // close modal for description
+  const handleOpenAmenities = () => setOpenAmenities(true); // open modal for description
+  const handleCloseAmenities = () => setOpenAmenities(false); // close modal for description
+
 
   return (
     <>
@@ -159,17 +129,17 @@ const Listing = () => {
           <span className='font-medium'>{city}, {country}</span>
         </p>
 
-        <div className='grid grid-cols-2 gap-4 py-3'>
+        <div className='grid lg:grid-cols-2 gap-4 py-3'>
           <div >
             <img
-              className="rounded-l-lg h-full w-full object-cover transition-transform duration-500 transform" 
+              className="lg:rounded-l-lg rounded-lg lg:h-full w-full object-cover transition-transform duration-500 transform" 
               src={mainImage} 
               alt="Beautiful house with 2 beds" 
               loading="lazy"
             />
           </div>
-          <div className='grid grid-cols-2 gap-4'>
-            <div>
+          <div className='grid grid-cols-2 gap-4 relative'>
+            <div className='lg:block hidden'>
               <img
                 className="h-64 w-full object-cover transition-transform duration-500 transform" 
                 src={secondImage} 
@@ -177,7 +147,7 @@ const Listing = () => {
                 loading="lazy"
               />
             </div>
-            <div>
+            <div className='lg:block hidden'>
               <img
                 className="rounded-tr-lg h-64 w-full object-cover transition-transform duration-500 transform" 
                 src={thirdImage} 
@@ -185,7 +155,7 @@ const Listing = () => {
                 loading="lazy"
               />
             </div>
-            <div>
+            <div className='lg:block hidden'>
               <img
                 className=" h-64 w-full object-cover transition-transform duration-500 transform" 
                 src={fourthImage} 
@@ -193,28 +163,28 @@ const Listing = () => {
                 loading="lazy"
               />
             </div>
-            <div className='relative'>
+            <div className='lg:block hidden'>
               <img
                 className="rounded-br-lg h-64 w-full object-cover transition-transform duration-500 transform" 
                 src={fifthImage} 
                 alt="Beautiful house with 2 beds" 
                 loading="lazy"
               />    
+            </div>
               <button 
                 variant='contained'
-                className='absolute bottom-4 right-0 mr-4 bg-white rounded p-2 border font-medium'
+                className='absolute lg:bottom-4 bottom-8 right-0 mr-4 bg-white rounded p-2 border border-black font-medium'
                 onClick={handleOpenImages}
               >
                 View all photos
               </button>
-            </div>
           </div>
         </div>
       </section>
 
-      <section id='details' className='container'>
-        <div className='grid grid-cols-3 gap-4'>
-          <div className='col-span-2'>
+      <section id='details' className='container pb-6'>
+        <div className='grid lg:grid-cols-3 gap-4'>
+          <div className='lg:col-span-2 col'>
             <div id='host' className="border-b py-3">
               <figure className="flex justify-between items-center">
                 <div className="">
@@ -237,9 +207,9 @@ const Listing = () => {
                 />
               </figure>
             </div>
-            <div id='description' className='border-b py-3'>
-              <p className='font-light truncate ...'>
-                {description}
+            <div id='description' className='border-b py-4'>
+              <p className='font-light mb-5'>
+                {truncateText(description, 600)}
               </p>
               <p 
                 className='font-medium underline' 
@@ -249,76 +219,99 @@ const Listing = () => {
                 Show More
               </p>
             </div>
-            <div id='amenities' className="border-b py-3">
+            <div id='amenities' className="border-b py-4">
               <h3 className='text-2xl font-medium'>What this place offers</h3>
               <div className='grid grid-cols-2 gap-4'>
-                <div>
-                  {/* <p>{amenitiesToShow[0]}</p>
-                  <p>{amenitiesToShow[1]}</p>
-                  <p>{amenitiesToShow[2]}</p>
-                  <p>{amenitiesToShow[3]}</p> */}
+                <div className='my-5'>
+                  {
+                    amenities.slice(0, 4).map((el, index) => {
+                      return (
+                        <p key={index} className='font-light my-3 py-2'>{el.title}</p>
+                      );
+                    })
+                  }
                 </div>
-                <div>
-                  {handleAmenities}
+                <div className='my-5'>
+                  {
+                    amenities.slice(4, 8).map((el, index) => {
+                      return (
+                        <p key={index} className='lg:block hidden font-light my-3 py-2'>{el.title}</p>
+                      );
+                    })
+                  }
                 </div>
-                {/* {amenities.map((amenity, index) => ()} */}
               </div>
               <button 
                 variant='contained'
-                className='bg-white rounded-md p-2 border font-medium'
-                onClick={handleOpenImages}
+                className='bg-white rounded-md p-2 border border-black font-medium'
+                onClick={handleOpenAmenities}
               >
                 {`Show all ${amenitiesCount} amenities`}
               </button>
             </div>
-            <div className="reservation">Reservation block</div>
+          </div>
+          <div className='pl-4 lg:block hidden'>
+            <div className="shadow-2xl p-3 bg-white border rounded-md">
+              <div className='grid grid-cols-2'>
+                <div className='mb-4'>
+                  <p>
+                    <span className="font-medium text-2xl">{currency}{price}</span> 
+                    <span className="font-light"> night</span>
+                  </p>
+                </div>
+                <div className='text-right mb-4'>
+                  <p>
+                    <span className="font-medium">{rate}</span> 
+                    <span className="font-medium"> . </span>
+                    <span className="font-medium underline text-gray-500">{review} reviews</span>
+                  </p>
+                </div>
+                <div className='border mt-3 p-2 rounded-tl-lg'>
+                  <p className='font-medium'>CHECK-IN</p>
+                  <p>date</p>
+                </div>
+                <div className='border mt-3 p-2 rounded-tr-lg'>
+                  <p className='font-medium'>CHECK OUT</p>
+                  <p>date</p>
+                </div>
+                <div className='border mb-3 col-span-2 p-2 rounded-b-lg'>
+                  <p className='font-medium'>Guests</p>
+                  <p>{maxGuestCapacity}</p>
+                </div>
+                <div className='col-span-2 border mt-5'>
+                  <button 
+                    className='text-white font-medium rounded-md w-full p-4' 
+                    style={{backgroundColor: "#329a9a"}}
+                  >
+                    Reserve
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
       {/* Modal to view all images */}
-      <Modal
+      <DescriptionModal
         open={openDescription}
         onClose={handleCloseDescription}
-      >
-        <Box 
-          sx={style2}
-          className="bg-white rounded-lg"
-        >
-          <h3 className='font-semibold text-2xl mb-3'>About</h3>
-          {description}
-        </Box>
-      </Modal>
+        description={description}
+      />
       
       {/* Modal for description */}
-      <Modal
+      <ImagesModal
         open={openImages}
         onClose={handleCloseImages}
-      >
-        <ImagesList styles={style} images={images} />
-      </Modal>
-      
-      {/* Modal for amenities */}
-      <Modal
-        open={openImages}
-        onClose={handleCloseImages}
-      >
-        <Box 
-          sx={style2}
-          className="bg-white rounded-lg"
-        >
-          {
-            amenities.map((amenity, index) => {
-              return (
-                <>
-                  <p key={index}>{amenity.group}</p>
+        images={images}
+      />
 
-                </>
-              );
-            })
-          }
-        </Box>
-      </Modal>
+      {/* Modal for Amenities */}
+      <AmenitiesModal 
+        id={id} 
+        open={openAmenities}
+        onClose={handleCloseAmenities}
+      />
     </>
   )
 }

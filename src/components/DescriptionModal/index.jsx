@@ -1,8 +1,9 @@
 import React from 'react';
 import { Modal, Box } from '@mui/material';
+import styles from '../../utils/descriptionModalStyles';
 
 const DescriptionModal = (props) => {
-    const { open, onClose, sx, description } = props;
+    const { open, onClose, description } = props;
 
     return (
         <Modal
@@ -10,7 +11,7 @@ const DescriptionModal = (props) => {
             onClose={onClose}
         >
             <Box 
-                sx={sx}
+                sx={styles}
                 className="bg-white rounded-lg"
             >
                 <h3 className='font-semibold text-2xl mb-3'>About</h3>
