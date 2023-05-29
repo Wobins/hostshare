@@ -12,8 +12,6 @@ const Index = () => {
           <ListingsCards />
         </div>
       </section>
-
-    
     </>
   );
 }
