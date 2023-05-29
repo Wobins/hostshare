@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from 'react';
+import { useSearchParams } from "react-router-dom";
 import cities from '../../utils/cities';
 import ListingCard from '../ListingCard';
 
-const ListingsCards = (props) => {
-  const { search } = props;
+const ListingsCards = () => {
+  let [searchCity, setSearchCity] = useSearchParams();
+  const cityQuery = searchCity.get("city");
   const [listings, setListings] = useState([]);
   const [listingsByCity, setListingsByCity] = useState([]);
 
   useEffect(() => {
+    console.log(cityQuery);
     const getListings = async () => {
       const listingsFromServer = await fetchListings()
       setListings(listingsFromServer)
@@ -22,7 +25,7 @@ const ListingsCards = (props) => {
     }
   
     getListings();
-    getListingsByCity(search);
+    getListingsByCity(cityQuery);
   }, []);
 
   // Fetch Listings
@@ -49,7 +52,7 @@ const ListingsCards = (props) => {
   return (
     <>
       {
-        search !== "" && cities.includes(search) ? (
+        cityQuery !== "" && cities.includes(cityQuery) ? (
           listingsByCity.map((listing, index) => (
             <ListingCard
               key={index}
