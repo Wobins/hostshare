@@ -1,15 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, useParams, useLocation } from "react-router-dom";
 import cities from '../../utils/cities';
 import ListingCard from '../ListingCard';
 
+// const cities = ["Hardwick", "Miami", "Maryville"]
+
 const ListingsCards = () => {
+  // let location = useLocation();
   let [searchCity, setSearchCity] = useSearchParams();
   const cityQuery = searchCity.get("city");
   const [listings, setListings] = useState([]);
   const [listingsByCity, setListingsByCity] = useState([]);
 
   useEffect(() => {
+    console.log(searchCity);
     console.log(cityQuery);
     const getListings = async () => {
       const listingsFromServer = await fetchListings()
@@ -17,22 +21,21 @@ const ListingsCards = () => {
     }
     
     const getListingsByCity = async (city_filter) => {
-      console.log(cities);
+      console.log("cities imported", cities);
       console.log("getListings By filter")
       const listingsByCityFromServer = await fetchListingsByCity(city_filter);
-      setListingsByCity(listingsByCityFromServer);
+      setListingsByCity([...new Set(listingsByCityFromServer)]);
       console.log(listingsByCityFromServer);
     }
   
     getListings();
     getListingsByCity(cityQuery);
-  }, []);
+  }, [cityQuery, searchCity]);
 
   // Fetch Listings
   const fetchListings = async () => {
     const res = await fetch('http://localhost:5000/listings/');
     const data = await res.json();
-    // console.log(data);
     return data;
   }
   
@@ -43,16 +46,16 @@ const ListingsCards = () => {
     let listings = [];
     data.forEach((el) => {
       if (el.info.location.city === city) {
-        cities.push(el)
+        listings.push(el)
       }
     });
-    return listings;
+    return [...new Set(listings)];
   }
 
   return (
     <>
       {
-        cityQuery !== "" && cities.includes(cityQuery) ? (
+        cities.includes(cityQuery) ? (
           listingsByCity.map((listing, index) => (
             <ListingCard
               key={index}

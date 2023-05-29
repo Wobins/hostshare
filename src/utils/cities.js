@@ -1,13 +1,13 @@
 // Fetch Listings
 const getCities = async () => {
-    let categories = [];
+    let cities = [];
     const res = await fetch('http://localhost:5000/listings/');
     const data = await res.json();
     for (let i = 0; i < data.length; i++) {
         const el = data[i].info.location.city;
-        categories.push(el)
+        cities.push(el)
     }
-    return [...new Set(categories)];
+    return [...new Set(cities)];
 }
 
 const cities = await getCities();

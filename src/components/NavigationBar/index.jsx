@@ -1,21 +1,33 @@
 import React, { useState } from 'react';
 import { Avatar } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import MenuIcon from '@mui/icons-material/Menu';
 import "./styles.css";
 
 const hostshare_green_logo = require("../../assets/images/Hostshare-logo-green.png") 
 
 const NavigationBar = () => {
+    const location =  useLocation();
+    let [searchParams, setSearchParams] = useSearchParams();
+    const city_query = searchParams.get("city");
     const [city, setCity] = useState("");
+    const navigate = useNavigate();
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
+    function handleSubmit(event) {
+        event.preventDefault();
+        if (location.pathname === "/") {
+            navigate(`search?city=${city}`)
+        } else if (location.pathname.includes("/search?city=")) {
+            let params = {city: city};
+            setSearchParams(params);
+        } else {
+            console.log("hoha")
+        }
     }
 
     return (
         <header className='z-40 py-4 border-b-2 bg-white sticky top-0 right-0 m-0'>
-            <nav id='navbar' className='lg:m-0 px-4 lg:px-0 lg:container'>
+            <nav id='navbar' className='lg:container px-4'>
                 <div className="flex justify-between items-center">
                     <div id='navbar-logo' className=''>
                         <Link to="/">
@@ -27,11 +39,13 @@ const NavigationBar = () => {
                             <input 
                                 className='border' 
                                 type="text" 
-                                value={city} 
+                                value={city}
+                                name='city' 
                                 onChange={(e) => setCity(e.target.value)} 
                             />
                             <input className='border' type="date" />
                             <input className='border' type="number" />
+                            <button type="submit">search</button>
                         </form>
                     </div>
                     <div id='navbar-menu' className=''>
