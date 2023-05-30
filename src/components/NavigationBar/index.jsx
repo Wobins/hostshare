@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Avatar } from '@mui/material';
+import { Avatar, Divider } from '@mui/material';
 import { Link, useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import MenuIcon from '@mui/icons-material/Menu';
 import "./styles.css";
@@ -35,17 +35,47 @@ const NavigationBar = () => {
                         </Link>
                     </div>
                     <div id='navbar-search-form' className=''>
-                        <form onSubmit={handleSubmit} className='inline-block'>
-                            <input 
-                                className='border' 
-                                type="text" 
-                                value={city}
-                                name='city' 
-                                onChange={(e) => setCity(e.target.value)} 
-                            />
-                            <input className='border' type="date" />
-                            <input className='border' type="number" />
-                            <button type="submit">search</button>
+                        <form 
+                            id='search-form'
+                            onSubmit={handleSubmit} 
+                            className='flex'
+                            style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                width: 'fit-content',
+                                color: 'text.secondary',
+                                '& svg': {
+                                  m: 1.5,
+                                },
+                                '& hr': {
+                                  mx: 0.5,
+                                },
+                            }}
+                        >   
+                            <div className=''>
+                                <input 
+                                    className='border mr-2 block' 
+                                    type="text" 
+                                    value={city}
+                                    name='city' 
+                                    onChange={(e) => setCity(e.target.value)} 
+                                />
+                            </div>
+                            <Divider orientation="vertical" variant='middle' className='ml-4' flexItem />
+                            <div>
+                                <input className='border mx-2' type="date" />
+                            </div>
+                            <Divider orientation="vertical" variant='middle' className='mr-2' flexItem />
+                            <div>
+                                <input className='border ml-2' type="number" />
+                            </div>
+                            <button 
+                                type="submit" 
+                                style={{backgroundColor: "#329a9a"}} 
+                                className='border p-3 rounded-circle text-white'
+                            >
+                                search
+                            </button>
                         </form>
                     </div>
                     <div id='navbar-menu' className=''>

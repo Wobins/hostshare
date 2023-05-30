@@ -6,6 +6,7 @@ import DescriptionModal from '../../components/DescriptionModal';
 import AmenitiesModal from '../../components/AmenitiesModal';
 import truncateText from '../../utils/truncateText'
 
+const BASE_URL = process.env.REACT_APP_API_URL;
 
 const Listing = () => {
   let {id} = useParams();
@@ -95,8 +96,9 @@ const Listing = () => {
   // Fetch Listing
   const fetchListing = async () => {
     let listing;
-    const res = await fetch(`http://localhost:5000/listings`);
-    const data = await res.json();
+    const res = await fetch(BASE_URL);
+    const info = await res.json()
+    const data = info.data;
     for (let i = 0; i < data.length; i++) {
       const el = data[i];
       if (el.info.id === id) {

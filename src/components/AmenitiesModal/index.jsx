@@ -3,6 +3,8 @@ import { Modal, Box } from '@mui/material';
 import groups from '../../utils/groups';
 import styles from '../../utils/amenitiesModalStyles';
 
+const BASE_URL = process.env.REACT_APP_API_URL;
+
 const AmenitiesModal = (props) => {
     const { open, onClose, id } = props;
     const [amenities, setAmenities] = useState([]);
@@ -19,8 +21,9 @@ const AmenitiesModal = (props) => {
     // Fetch Listing
     const fetchAmenities = async () => {
         let listing;
-        const res = await fetch(`http://localhost:5000/listings`);
-        const data = await res.json();
+        const res = await fetch(BASE_URL);
+        const info = await res.json()
+        const data = info.data;
         for (let i = 0; i < data.length; i++) {
             const el = data[i];
             if (el.info.id === id) {

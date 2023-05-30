@@ -4,6 +4,7 @@ import cities from '../../utils/cities';
 import ListingCard from '../ListingCard';
 
 // const cities = ["Hardwick", "Miami", "Maryville"]
+const BASE_URL = process.env.REACT_APP_API_URL;
 
 const ListingsCards = () => {
   // let location = useLocation();
@@ -34,15 +35,17 @@ const ListingsCards = () => {
 
   // Fetch Listings
   const fetchListings = async () => {
-    const res = await fetch('http://localhost:5000/listings/');
-    const data = await res.json();
+    const res = await fetch(BASE_URL);
+    const info = await res.json()
+    const data = info.data;
     return data;
   }
   
   // Fetch Listings by city
   const fetchListingsByCity = async (city) => {
-    const res = await fetch('http://localhost:5000/listings/');
-    const data = await res.json();
+    const res = await fetch(BASE_URL);
+    const info = await res.json()
+    const data = info.data;
     let listings = [];
     data.forEach((el) => {
       if (el.info.location.city === city) {
