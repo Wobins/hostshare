@@ -55,7 +55,10 @@ const ListingsCards = () => {
     <>
       {
         cities.includes(cityQuery) ? (
-          listingsByCity.map((listing, index) => (
+          listingsByCity.filter((obj, index, self) => {
+            // Check if the current object is the first occurrence of the id in the array
+            return index === self.findIndex((o) => o.id === obj.id);
+          }).map((listing, index) => (
             <ListingCard
               key={index}
               id={listing.info.id}

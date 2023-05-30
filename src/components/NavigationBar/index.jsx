@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Link, useLocation, useNavigate, useSearchParams } from 'react-router-dom';
+import React from 'react';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import serializeFormQuery from '../../utils/serializeFormQuery';
 import capitalizeAfterEqual from '../../utils/capitalizeAfterEqual';
 import { Avatar, Divider } from '@mui/material';
@@ -10,10 +10,7 @@ import "./styles.css";
 const hostshare_green_logo = require("../../assets/images/Hostshare-logo-green.png"); 
 
 const NavigationBar = () => {
-    const location =  useLocation();
     let [searchParams, setSearchParams] = useSearchParams();
-    const city_query = searchParams.get("city");
-    const [city, setCity] = useState("");
     const navigate = useNavigate();
 
     function handleSubmit(event) {
@@ -56,9 +53,7 @@ const NavigationBar = () => {
                                 <input 
                                     className='border mr-2 block' 
                                     type="text" 
-                                    // value={city}
                                     name='city' 
-                                    // onChange={(e) => setCity(e.target.value)} 
                                 />
                             </div>
                             <Divider orientation="vertical" variant='middle' className='ml-4' flexItem />
