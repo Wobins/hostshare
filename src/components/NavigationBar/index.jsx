@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { Avatar, Divider } from '@mui/material';
+import SearchIcon from '@mui/icons-material/Search';
 import { Link, useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import MenuIcon from '@mui/icons-material/Menu';
 import "./styles.css";
 
-const hostshare_green_logo = require("../../assets/images/Hostshare-logo-green.png") 
+const hostshare_green_logo = require("../../assets/images/Hostshare-logo-green.png"); 
 
 const NavigationBar = () => {
     const location =  useLocation();
@@ -66,15 +67,15 @@ const NavigationBar = () => {
                                 <input className='border mx-2' type="date" />
                             </div>
                             <Divider orientation="vertical" variant='middle' className='mr-2' flexItem />
-                            <div>
+                            <div className='w-30'>
                                 <input className='border ml-2' type="number" />
                             </div>
                             <button 
                                 type="submit" 
                                 style={{backgroundColor: "#329a9a"}} 
-                                className='border p-3 rounded-circle text-white'
+                                className='border p-1 rounded-full text-white'
                             >
-                                search
+                                <SearchIcon />
                             </button>
                         </form>
                     </div>
