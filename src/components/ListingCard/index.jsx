@@ -1,21 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import classNames from 'classnames';
 import { Box } from '@mui/material';
+import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import { Link } from 'react-router-dom';
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 
-// const image = require("../../assets/images/Hostshare-icon-green.png")
-// const image1 = require("../../assets/images/Hostshare-logo-black.png")
-// const images = [
-//     image,
-//     image1,
-//     image,
-// ];
 
 const ListingCard = (props) => {
     const { 
-        id, title, mainImage, city, country,rating, nightlyRate, secondImage, thirdImage, fourthImage, currency 
+        id, airbnb, mainImage, city, country,rating, nightlyRate, secondImage, thirdImage, fourthImage, currency 
     } = props;
     const [currentSlide, setCurrentSlide] = useState(0);
     const [isHovered, setIsHovered] = useState(false);
@@ -110,8 +104,11 @@ const ListingCard = (props) => {
                         <h6 className='font-semibold'>{city}, {country}</h6>
                         <p className='font-semibold'>{rating}</p>
                     </div>
-                    <p className='font-light'>At homme</p>
-                    <p className='font-light'>At hgoldldld</p> <br />
+                    <p className='font-light underline underline-offset-2 m-1' style={{color: "#329a9a",}}>
+                        <Link to={airbnb} target='_blank'>Visit on Airbnb <OpenInNewIcon /> </Link>
+                    </p>
+                    {/* <p className='font-light'>At hgoldldld</p>  */}
+                    <br />
                     <p>
                         <span className='font-semibold'>{currency}{nightlyRate}</span> <span className='font-normal'>night</span>
                     </p>

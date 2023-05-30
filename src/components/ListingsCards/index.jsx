@@ -62,6 +62,7 @@ const ListingsCards = () => {
             <ListingCard
               key={index}
               id={listing.info.id}
+              airbnb={listing.ref}
               title={listing.info.title}
               city={listing.info.location.city}
               country={listing.info.location.country.title}
@@ -79,6 +80,7 @@ const ListingsCards = () => {
             <ListingCard
               key={index}
               id={listing.info.id}
+              airbnb={listing.ref}
               title={listing.info.title}
               city={listing.info.location.city}
               country={listing.info.location.country.title}
