@@ -10,7 +10,7 @@ const BASE_URL = "https://file.notion.so/f/s/24643894-e5c3-4c40-974a-52594f581e0
 const ListingsCards = () => {
   // let location = useLocation();
   let [searchCity, setSearchCity] = useSearchParams();
-  const cityQuery = searchCity.get("city");
+  let cityQuery = searchCity.get("city");
   const [listings, setListings] = useState([]);
   const [listingsByCity, setListingsByCity] = useState([]);
 

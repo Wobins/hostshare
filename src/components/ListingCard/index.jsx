@@ -44,7 +44,7 @@ const ListingCard = (props) => {
                     <Box 
                         className="overflow-hidden rounded-lg" 
                         component={Link} 
-                        to={`rooms/${id}`} 
+                        to={`/rooms/${id}`} 
                         target='_blank'
                     >
                         <img
@@ -103,7 +103,7 @@ const ListingCard = (props) => {
                 </div>
                 <Box
                     component={Link} 
-                    to={`rooms/${id}`} 
+                    to={`/rooms/${id}`} 
                     target='_blank'
                 >
                     <div className='flex justify-between'>

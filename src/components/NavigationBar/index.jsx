@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+import { Link, useLocation, useNavigate, useSearchParams } from 'react-router-dom';
+import serializeFormQuery from '../../utils/serializeFormQuery';
+import capitalizeAfterEqual from '../../utils/capitalizeAfterEqual';
 import { Avatar, Divider } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
-import { Link, useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import MenuIcon from '@mui/icons-material/Menu';
 import "./styles.css";
 
@@ -16,14 +18,11 @@ const NavigationBar = () => {
 
     function handleSubmit(event) {
         event.preventDefault();
-        if (location.pathname === "/") {
-            navigate(`search?city=${city}`)
-        } else if (location.pathname.includes("/search?city=")) {
-            let params = {city: city};
-            setSearchParams(params);
-        } else {
-            console.log("hoha")
-        }
+        const form = event.target;
+        const formData = new FormData(form);
+        const queryString = serializeFormQuery(formData);
+        navigate('/search');
+        setSearchParams(capitalizeAfterEqual(queryString));
     }
 
     return (
@@ -35,7 +34,7 @@ const NavigationBar = () => {
                             <img src={hostshare_green_logo} alt="Hostshare green logo" className='logo' />
                         </Link>
                     </div>
-                    <div id='navbar-search-form' className=''>
+                    <div id='navbar-search-form' className='border rounded-full p-2'>
                         <form 
                             id='search-form'
                             onSubmit={handleSubmit} 
@@ -57,9 +56,9 @@ const NavigationBar = () => {
                                 <input 
                                     className='border mr-2 block' 
                                     type="text" 
-                                    value={city}
+                                    // value={city}
                                     name='city' 
-                                    onChange={(e) => setCity(e.target.value)} 
+                                    // onChange={(e) => setCity(e.target.value)} 
                                 />
                             </div>
                             <Divider orientation="vertical" variant='middle' className='ml-4' flexItem />

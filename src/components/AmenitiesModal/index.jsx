@@ -50,8 +50,8 @@ const AmenitiesModal = (props) => {
                             <>
                                 <h2 className='text-2xl font-medium mb-2'>{group}</h2>
                                 {
-                                    amenities.map(el => {
-                                        return (el.group === group && <p className='font-light mb-1'>{el.title}</p>);
+                                    amenities.map((el, index) => {
+                                        return (el.group === group && <p key={index} className='font-light mb-1'>{el.title}</p>);
                                     })
                                 }
                             </>
