@@ -13,7 +13,6 @@ const AmenitiesModal = (props) => {
         const getAmenities = async () => {
             const amnties = await fetchAmenities();
             setAmenities(amnties);
-            console.log("amenisties", amenities)
         }
         getAmenities();
     }, []);

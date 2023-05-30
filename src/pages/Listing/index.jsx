@@ -280,7 +280,7 @@ const Listing = () => {
                   <p className='font-medium'>Guests</p>
                   <p>{maxGuestCapacity}</p>
                 </div>
-                <div className='col-span-2 border mt-5'>
+                <div className='col-span-2 mt-5'>
                   <button 
                     className='text-white font-medium rounded-md w-full p-4' 
                     style={{backgroundColor: "#329a9a"}}

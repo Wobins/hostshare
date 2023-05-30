@@ -14,19 +14,14 @@ const ListingsCards = () => {
   const [listingsByCity, setListingsByCity] = useState([]);
 
   useEffect(() => {
-    console.log(searchCity);
-    console.log(cityQuery);
     const getListings = async () => {
       const listingsFromServer = await fetchListings()
       setListings(listingsFromServer)
     }
     
     const getListingsByCity = async (city_filter) => {
-      console.log("cities imported", cities);
-      console.log("getListings By filter")
       const listingsByCityFromServer = await fetchListingsByCity(city_filter);
       setListingsByCity([...new Set(listingsByCityFromServer)]);
-      console.log(listingsByCityFromServer);
     }
   
     getListings();
