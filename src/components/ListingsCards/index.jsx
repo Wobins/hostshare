@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { useSearchParams, useParams, useLocation } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import cities from '../../utils/cities';
 import ListingCard from '../ListingCard';
 
-// const cities = ["Hardwick", "Miami", "Maryville"]
-const BASE_URL = "https://file.notion.so/f/s/24643894-e5c3-4c40-974a-52594f581e03/listings.json?id=f795dab6-14d4-48a9-9567-c72151d311a2&table=block&spaceId=f2ea7328-64a4-4f18-bacc-df6c9ac3d888&expirationTimestamp=1685561688948&signature=-ePEfSK1Pv7q3Lm3d9RoI-ja55ze43sB9ftPrR1m1aI&downloadName=listings.json";
+
+const BASE_URL = "https://hostshare.s3.amazonaws.com/db.json";
+// const BASE_URL = "https://file.notion.so/f/s/24643894-e5c3-4c40-974a-52594f581e03/listings.json?id=f795dab6-14d4-48a9-9567-c72151d311a2&table=block&spaceId=f2ea7328-64a4-4f18-bacc-df6c9ac3d888&expirationTimestamp=1685561688948&signature=-ePEfSK1Pv7q3Lm3d9RoI-ja55ze43sB9ftPrR1m1aI&downloadName=listings.json";
 // const BASE_URL = process.env.REACT_APP_API_URL;
 
 const ListingsCards = () => {
-  // let location = useLocation();
   let [searchCity, setSearchCity] = useSearchParams();
   let cityQuery = searchCity.get("city");
   const [listings, setListings] = useState([]);
@@ -33,7 +33,7 @@ const ListingsCards = () => {
   const fetchListings = async () => {
     const res = await fetch(BASE_URL);
     const info = await res.json()
-    const data = info.data;
+    const data = info.listings;
     return data;
   }
   
@@ -41,7 +41,7 @@ const ListingsCards = () => {
   const fetchListingsByCity = async (city) => {
     const res = await fetch(BASE_URL);
     const info = await res.json()
-    const data = info.data;
+    const data = info.listings;
     let listings = [];
     data.forEach((el) => {
       if (el.info.location.city === city) {

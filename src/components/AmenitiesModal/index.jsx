@@ -23,9 +23,9 @@ const AmenitiesModal = (props) => {
         let listing;
         const res = await fetch(BASE_URL);
         const info = await res.json()
-        const data = info.data;
-        for (let i = 0; i < data.length; i++) {
-            const el = data[i];
+        // const data = info.data;
+        for (let i = 0; i < info.length; i++) {
+            const el = info[i];
             if (el.info.id === id) {
                 listing = el;
                 break;

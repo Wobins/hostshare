@@ -31,7 +31,7 @@ const NavigationBar = () => {
                             <img src={hostshare_green_logo} alt="Hostshare green logo" className='logo' />
                         </Link>
                     </div>
-                    <div id='navbar-search-form' className='border rounded-full p-2'>
+                    <div id='navbar-search-form' className='border block drop-shadow rounded-full p-2'>
                         <form 
                             id='search-form'
                             onSubmit={handleSubmit} 
@@ -51,14 +51,14 @@ const NavigationBar = () => {
                         >   
                             <div className=''>
                                 <input 
-                                    className='border mr-2 block' 
+                                    className='border-0 mr-2 block' 
                                     type="text" 
                                     name='city' 
                                 />
                             </div>
                             <Divider orientation="vertical" variant='middle' className='ml-4' flexItem />
                             <div>
-                                <input className='border mx-2' type="date" />
+                                <input className='border mx-2 ' type="date" />
                             </div>
                             <Divider orientation="vertical" variant='middle' className='mr-2' flexItem />
                             <div className='w-30'>
