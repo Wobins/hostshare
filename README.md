@@ -4,7 +4,7 @@ This project is part of the hiring process of a Software Engineer at Blender.
 
 ## Tech Stack
 
-This project was built with: React, Tailwind css, Material UI, React-router-dom, and AWS. \
+This project was built with: 
 
     - React
     - JavaScript 
