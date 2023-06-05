@@ -42,6 +42,10 @@ const Listing = () => {
   const [amenitiesCount, setAmenitiesCount] = useState("");
 
   useEffect(() => {
+    document.title = `${title}`
+  }, [title, type])
+
+  useEffect(() => {
     const getListing = async () => {
       const listing = await fetchListing()
       let imgs = [];

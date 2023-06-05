@@ -15,6 +15,10 @@ const ListingsCards = () => {
   const [listingsByCity, setListingsByCity] = useState([]);
 
   useEffect(() => {
+    document.title = `Hostshare | ${cityQuery}`
+  }, [cityQuery])
+
+  useEffect(() => {
     const getListings = async () => {
       const listingsFromServer = await fetchListings()
       setListings(listingsFromServer)

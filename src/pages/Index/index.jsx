@@ -1,9 +1,13 @@
-import React, { Suspense }  from 'react';
+import React, { Suspense, useEffect }  from 'react';
 import CircularProgress from '@mui/material/CircularProgress';
 import NavigationBar from '../../components/NavigationBar';
 import ListingsCards from '../../components/ListingsCards';
 
 const Index = () => {
+  useEffect(() => {
+    document.title = "Hostshare";
+  })
+
   return (
     <>
       <NavigationBar />
